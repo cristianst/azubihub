@@ -1,0 +1,23 @@
+html, body, body > div {
+  height: 100% !important;
+}
+
+html, body { margin: 0; padding: 0 }
+
+body > div {
+  background: #F5F5F6;
+}
+
+
+/* Login Page */
+div.mainLogin {
+  height: 100%;
+}
+
+.userMainGrid {
+  padding-top: 40px !important;
+}
+.userReportItem {
+  text-align: left;
+  min-width: 400px;
+}
