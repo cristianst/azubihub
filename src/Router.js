@@ -7,8 +7,8 @@ import Page404 from './components/404.js';
 const AppRouter =  () => (
     <BrowserRouter>
         <Switch>
-            <Route exact path={`${process.env.PUBLIC_URL}/`} component={Main} />
-            <Route path={`${process.env.PUBLIC_URL}/new`} component={ReportCreator}/>
+            <Route exact path={`${process.env.PUBLIC_URL}/azubiyo/`} component={Main} />
+            <Route path={`${process.env.PUBLIC_URL}/azubiyo/new`} component={ReportCreator}/>
             <Route component={Page404} />
         </Switch>
     </BrowserRouter>
