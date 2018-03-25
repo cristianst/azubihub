@@ -1,20 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import App from './App';
-
-const Page404 = () => (
-    <div>404</div>
-);
-
-const PageOne = () => (
-    <div>PageOne</div>
-);
+import Main from './components/Main';
+import ReportCreator from './components/ReportCreator';
+import Page404 from './components/404.js';
 
 const AppRouter =  () => (
     <BrowserRouter>
         <Switch>
-            <Route exact path={`${process.env.PUBLIC_URL}/`} component={App} />
-            <Route path='/one' component={PageOne}/>
+            <Route exact path={`${process.env.PUBLIC_URL}/`} component={Main} />
+            <Route path='/new' component={ReportCreator}/>
             <Route path='/two' />
             <Route component={Page404} />
         </Switch>

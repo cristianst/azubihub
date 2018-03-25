@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import { Button, Header, Grid } from 'semantic-ui-react';
-
-import firebaseApp from '../firebase.js';
 import UserReports from './UserReports.js';
+import { withRouter } from 'react-router'
 
 class UserMain extends Component {
     constructor(props){
@@ -13,6 +12,17 @@ class UserMain extends Component {
             reportsLoaded: false,
         };
 
+        this.createReport = this.createReport.bind(this);
+
+    }
+    createReport(){
+        const { history, user } = this.props;
+        history.push({
+            pathname: '/new',
+            state: {
+                user
+            }
+        });
     }
     componentWillMount(){
         let reports = [];
@@ -22,7 +32,7 @@ class UserMain extends Component {
             .collection('reports');
 
         // Retrieve Reports Snapshot
-        const getReportsSnapshot = reportCollection.get()
+        reportCollection.get()
             .then(snapshot => {
                 snapshot.forEach(doc => {
                     reports.push(doc.data());
@@ -41,8 +51,8 @@ class UserMain extends Component {
     }
     render(){
         const { reports, reportsLoaded } = this.state;
-        const { displayName, email, photoURL } = this.props.user;
-        console.log(reports);
+        const { displayName } = this.props.user;
+        //console.log(reports);
         return(
             <div className="userMainPage">
                 <Grid
@@ -65,7 +75,7 @@ class UserMain extends Component {
 
                     </Grid.Row>
                     <Grid.Row>
-                        <Button content='Create Report' primary />
+                        <Button onClick={this.createReport} content='Create Report' primary />
                     </Grid.Row>
                 </Grid>
             </div>
@@ -73,4 +83,6 @@ class UserMain extends Component {
     }
 }
 
-export default UserMain;
+const userMainWithRouter = withRouter(UserMain);
+
+export default userMainWithRouter;
