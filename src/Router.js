@@ -8,8 +8,7 @@ const AppRouter =  () => (
     <BrowserRouter>
         <Switch>
             <Route exact path={`${process.env.PUBLIC_URL}/`} component={Main} />
-            <Route path='/new' component={ReportCreator}/>
-            <Route path='/two' />
+            <Route path={`${process.env.PUBLIC_URL}/new`} component={ReportCreator}/>
             <Route component={Page404} />
         </Switch>
     </BrowserRouter>
