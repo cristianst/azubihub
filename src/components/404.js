@@ -13,7 +13,7 @@ const Page404 = ({history}) => (
                 <Button color='grey' onClick={() => history.push({pathname: `${process.env.PUBLIC_URL}/`})} animated>
                     <Button.Content visible>BACK TO HOME</Button.Content>
                     <Button.Content hidden>
-                        <Icon name='right arrow' />
+                        <Icon name='left arrow' />
                     </Button.Content>
                 </Button>
             </div>

@@ -27,3 +27,22 @@ div.mainLogin {
   text-align: left;
   min-width: 400px;
 }
+
+.formActions {
+  margin-top: 20px;
+}
+
+.textCentered {
+  text-align: center;
+}
+
+input:read-only, textarea:read-only {
+    opacity: 0.5 !important;
+}
+
+.editButton {
+  margin-left: 10px !important;
+}
+.clickable {
+  cursor: pointer;
+}

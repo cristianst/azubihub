@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import { Button, Header, Grid } from 'semantic-ui-react';
 import UserReports from './UserReports.js';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 
 class UserMain extends Component {
     constructor(props){
@@ -26,16 +26,21 @@ class UserMain extends Component {
     }
     componentWillMount(){
         let reports = [];
-        // Reference to Report Collection from User
-        const reportCollection = firebase.firestore().collection('/users')
-            .doc(this.props.user._id)
-            .collection('reports');
+        const currentUserId = this.props.user._id;
+        const reportCollection = firebase.firestore().collection('/reports')
+            .where('createdBy', '==', currentUserId);
 
         // Retrieve Reports Snapshot
         reportCollection.get()
             .then(snapshot => {
                 snapshot.forEach(doc => {
-                    reports.push(doc.data());
+                    let report = {};
+                    const reportId = doc.id;
+                    report = {
+                        _id: reportId,
+                        ...doc.data()
+                    };
+                    reports.push(report);
                 });
 
                 this.setState({
@@ -52,7 +57,7 @@ class UserMain extends Component {
     render(){
         const { reports, reportsLoaded } = this.state;
         const { displayName } = this.props.user;
-        //console.log(reports);
+
         return(
             <div className="userMainPage">
                 <Grid
@@ -75,7 +80,7 @@ class UserMain extends Component {
 
                     </Grid.Row>
                     <Grid.Row>
-                        <Button onClick={this.createReport} content='Create Report' primary />
+                        <Button onClick={this.createReport} content='NEW REPORT' color='teal' />
                     </Grid.Row>
                 </Grid>
             </div>

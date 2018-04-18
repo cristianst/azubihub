@@ -15,4 +15,35 @@ FirebaseApp.getCurrentUser = () => {
 
 };
 
+FirebaseApp.createReport = (report) => {
+    return new Promise((resolve, reject) => {
+        firebaseApp.firestore().collection('reports')
+            .add(report)
+            .then(ref => {
+                resolve(ref);
+            })
+            .catch(e => {
+                reject(e);
+            });
+    });
+};
+
+FirebaseApp.getReport = (reportId) => {
+    return new Promise((resolve, reject) => {
+        firebaseApp.firestore().collection('reports')
+        .doc(reportId)
+        .get()
+        .then((report) => {
+            if(report.exists){
+                resolve(report.data());
+            } else {
+                reject("Report doesnt exist");
+            }
+        })
+        .catch(e => {
+            reject(e);
+        });
+    });
+};
+
 export default FirebaseApp;
