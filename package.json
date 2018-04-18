@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://cristianst.github.io/azubiyo",
   "dependencies": {
+    "firebase": "^4.12.1",
     "gh-pages": "^1.1.0",
     "lodash": "^4.17.5",
     "moment": "^2.21.0",
