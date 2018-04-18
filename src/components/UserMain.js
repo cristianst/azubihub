@@ -64,6 +64,7 @@ class UserMain extends Component {
                   verticalAlign='middle'
                   centered={true}
                   className='userMainGrid'
+                  padded
                 >
                     <Grid.Row>
                         <Header as="h2">

@@ -56,7 +56,8 @@ class ReportCreator extends Component {
     }
     handleChangeTextAreaContent(e, {value}){
         this.setState({
-            reportContent: value.replace(/(?:\r\n|\r|\n)/g, '<br/>')
+            reportContent: value
+            //reportContent: value.replace(/(?:\r\n|\r|\n)/g, '<br/>')
         });
     }
     handleChangeType(e, {value}){

@@ -7,12 +7,14 @@ class LoggedUserLayout extends Component {
         super(props);
         this.state = {
             userId: null,
+            userName: ''
         };
     }
     componentDidMount(){
         FirebaseApp.getCurrentUser().then((result) => {
             this.setState({
-                userId: result.uid
+                userId: result.uid,
+                userName: result.displayName
             });
         }).catch((e) => {
             const { history } = this.props;
@@ -23,7 +25,11 @@ class LoggedUserLayout extends Component {
     }
 
     render(){
-        if(this.state.userId) return this.props.children;
+        if(this.state.userId) {
+            const { userId, userName } = this.state;
+            return this.props.children({userId, userName});
+        }
+
         return null;
     }
 }
