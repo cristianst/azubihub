@@ -5,6 +5,7 @@ import { List } from 'semantic-ui-react';
 class UserReports extends Component {
     navigateToReport = (reportId) => {
         const { history } = this.props;
+        // fix this shit making a root url global
         history.push({
             pathname: `/reports/${reportId}`
         });

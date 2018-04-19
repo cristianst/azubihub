@@ -50,6 +50,7 @@ class Main extends Component {
             });
         }).catch(function(error) {
             // Handle Errors here.
+            alert(error);
             console.log(error);
         });
 	}

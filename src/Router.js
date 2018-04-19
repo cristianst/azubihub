@@ -6,27 +6,32 @@ import Report from './components/Report';
 import Page404 from './components/404.js';
 
 //App Router for GH Pages
-/*const AppRouter =  () => (
-    <BrowserRouter>
-        <Switch>
-            <Route exact path={`${process.env.PUBLIC_URL}/`} component={Main} />
-            <Route path={`${process.env.PUBLIC_URL}/azubiyo/new`}  component={ReportCreator}/>
-            <Route component={Page404} />
-        </Switch>
-    </BrowserRouter>
-); */
+// const AppRouterGH =  () => {
+//     console.log(process.env.PUBLIC_URL);
+//     return (
+//         <BrowserRouter basename={process.env.PUBLIC_URL}>
+//             <Switch>
+//                 <Route exact path={`${process.env.PUBLIC_URL}/`} component={Main} />
+//                 <Route path={`${process.env.PUBLIC_URL}/new`}  component={ReportCreator}/>
+//                 <Route path={`${process.env.PUBLIC_URL}/reports/:id`} component={Report}/>
+//                 <Route component={Page404} />
+//             </Switch>
+//         </BrowserRouter>
+//     );
+// }
 
-const AppRouter =  () => (
-    <BrowserRouter>
-        <Switch>
-            <Route exact path={`${process.env.PUBLIC_URL}/`} component={Main} />
-            <Route path='/new' component={ReportCreator}/>
-            <Route path='/reports/:id' component={Report}/>
-            <Route component={Page404} />
-        </Switch>
-    </BrowserRouter>
-);
+const AppRouter =  () => {
+    console.log(process.env.PUBLIC_URL);
+    return(
+        <BrowserRouter>
+            <Switch>
+                <Route exact path={`${process.env.PUBLIC_URL}/`} component={Main} />
+                <Route path='/new' component={ReportCreator}/>
+                <Route path='/reports/:id' component={Report}/>
+                <Route component={Page404} />
+            </Switch>
+        </BrowserRouter>
+    )
+}
 
-
-//<Route path='*' component={} />
 export default AppRouter;

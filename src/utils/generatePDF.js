@@ -2,19 +2,36 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-
-
 const generatePDF = ({userName, report}) => {
     // Generate content
-    const contentLabel = report.school ? 'Unterichtsthemen' : 'Betriebliche Tätigkeiten';
+    const contentLabel = report.school ? 'Unterichtsthemen:' : 'Betriebliche Tätigkeiten:';
+    const parsedContent = report.content.replace(/\n/ig, '\n\n');
     const doc = {
         footer: {
             columns: [
-              'Left part',
-              { text: 'Right part' }
+                { 
+                    text: '____________________\nAuszubildender',
+                    alignment: 'center',
+                    margin: -35
+                },
+                { 
+                    text: '____________________\nAusbilder',
+                    alignment: 'center',
+                    margin: -35
+                },
+                { 
+                    text: '_______________________\nGesetzlicher Vertreter',
+                    alignment: 'center',
+                    style: 'footercolumn',
+                    margin: -35
+                }
             ]
         },
         content: [
+            {
+                text: 'Generated with azubiYO - Made by @cristianst',
+                style: 'credits'
+            },
             {
                 text: 'Ausbildungsnachweis',
                 style: 'header'
@@ -76,13 +93,18 @@ const generatePDF = ({userName, report}) => {
                 style: 'contentLabel'
             },
             {
-                text: report.content,
+                text: parsedContent,
                 style: 'p'
-            } ],
+            },
+            // {
+            //     text: 'Credits',
+            //     style: 'credits',
+            // }
+            ],
         styles : {
             header: {
                 bold: true,
-                margin: [0, 0, 0, 20],
+                margin: [0, 10, 0, 20],
                 alignment: 'center',
                 fontSize: 20,
                 decoration: 'underline'
@@ -94,59 +116,16 @@ const generatePDF = ({userName, report}) => {
                 margin: [10, 25, 0, 0],
                 bold: true,
                 decoration: 'underline'
+            },
+            credits: {
+                italic: true,
+                fontSize: 8,
+                alignment: 'center',
+                margin: [0, -32, 0, 0]
             }
         }
-    };
-    pdfMake.createPdf(doc).open();
-    //console.log(report);
-};
-// playground requires you to assign document definition to a variable called dd
-
-var dd = {
-    content : [
-        {
-            text: 'Ausbildungsnachweis',
-            style: 'header'
-        },
-        
-            {
-                columns: [
-                    'texz', 
-                    'text',
-                ],
-                
-                style: 'left'
-                    
-            },
-        
-        {
-            text: 'Woche vom A bis B',
-            style: 'p'
-        },
-        {
-            text: 'Ausbildungsjahr: 1',
-            style: 'p'
-        },
-        {
-            text: 'Abteilung: Software Enticklung',
-            style: 'p'
-        }
-        
-    ],
-    styles : {
-        header: {
-            bold: true,
-            alignment: 'center',
-            fontSize: 17
-        },
-        p: {
-            margin: 5
-        },
-        left: {
-            margin: 5,
-            alignment: 'left'
-        }
     }
+    pdfMake.createPdf(doc).open();
 };
 
 export default generatePDF;

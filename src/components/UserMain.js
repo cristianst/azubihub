@@ -17,8 +17,9 @@ class UserMain extends Component {
     }
     createReport(){
         const { history, user } = this.props;
+        console.log(process.env.PUBLIC_URL);
         history.push({
-            pathname: '/new',
+            pathname: `${process.env.PUBLIC_URL}/new`,
             state: {
                 user
             }

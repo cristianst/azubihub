@@ -47,6 +47,7 @@ class Report extends Component {
                                 verticalAlign='middle'
                                 className='userMainGrid'
                                 centered={true}
+                                padded
                                 >
                                     <Grid.Row>
                                         <Header as='h3'>

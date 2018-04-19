@@ -18,6 +18,7 @@ class LoggedUserLayout extends Component {
             });
         }).catch((e) => {
             const { history } = this.props;
+            console.log(e);
             history.push({
                 pathname: '/404'
             });
