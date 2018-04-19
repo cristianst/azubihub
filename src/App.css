@@ -46,3 +46,11 @@ input:read-only, textarea:read-only {
 .clickable {
   cursor: pointer;
 }
+
+.userReportItem  .deleteReport {
+  visibility: hidden;
+}
+
+.userReportItem:hover  .deleteReport {
+  visibility: visible;
+}

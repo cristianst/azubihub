@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { List } from 'semantic-ui-react';
+import _  from 'lodash';
+import FirebaseApp from '../utils/Firebase';
 
 class UserReports extends Component {
     navigateToReport = (reportId) => {
@@ -10,12 +12,24 @@ class UserReports extends Component {
             pathname: `/reports/${reportId}`
         });
     }
+    deleteReport = (e, reportId) => {
+        e.stopPropagation();
+        FirebaseApp.deleteReport(reportId)
+            .then((r) => console.log(r))
+            .catch(e => console.log(e));
+    }
     render(){
         const { reports } = this.props;
+        const sortedReports = _.orderBy(reports, 'startDate').reverse();
+
         return(
             <List selection verticalAlign='middle'>
-                { reports.map((report, index) => (
+                { sortedReports.map((report, index) => (
                     <List.Item className="userReportItem" key={index} onClick={() => this.navigateToReport(report._id)}>
+                        <List.Content floated='right' verticalAlign='middle' >
+                            <List.Icon className='deleteReport' color='red' name='trash' onClick={(e) => this.deleteReport(e, report._id)}/>
+                        </List.Content> 
+                        
                         <List.Content>
                             <List.Header as='h4'>Report {index + 1} - {report.school ? 'School' : 'Company'} </List.Header>
                             <List.Description>Week from
@@ -23,6 +37,7 @@ class UserReports extends Component {
                                 <a><b> {report.endDate}</b></a>
                             </List.Description>
                         </List.Content>
+                        
                     </List.Item>
                 )) }
             </List>

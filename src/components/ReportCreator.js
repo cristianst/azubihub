@@ -100,7 +100,7 @@ class ReportCreator extends Component {
         console.log(report);
         FirebaseApp.createReport(report)
         .then(result => {
-            console.log(result)
+            console.log("Report Created");
         })
         .catch(e => console.log(e));
     }

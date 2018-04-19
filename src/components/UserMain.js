@@ -17,7 +17,6 @@ class UserMain extends Component {
     }
     createReport(){
         const { history, user } = this.props;
-        console.log(process.env.PUBLIC_URL);
         history.push({
             pathname: `${process.env.PUBLIC_URL}/new`,
             state: {
@@ -26,23 +25,21 @@ class UserMain extends Component {
         });
     }
     componentWillMount(){
-        let reports = [];
         const currentUserId = this.props.user._id;
         const reportCollection = firebase.firestore().collection('/reports')
             .where('createdBy', '==', currentUserId);
 
         // Retrieve Reports Snapshot
-        reportCollection.get()
-            .then(snapshot => {
-                snapshot.forEach(doc => {
-                    let report = {};
-                    const reportId = doc.id;
-                    report = {
-                        _id: reportId,
-                        ...doc.data()
-                    };
-                    reports.push(report);
-                });
+        var observer = reportCollection.onSnapshot(snapshot => {
+            let reports = [];
+            snapshot.forEach(doc => {
+                let report = {};
+                const reportId = doc.id;
+                report = {
+                    _id: reportId,
+                    ...doc.data()
+                };
+                reports.push(report);
 
                 this.setState({
                     reportsLoaded: true
@@ -54,6 +51,9 @@ class UserMain extends Component {
                     });
                 }
             });
+        }, err => {
+            console.log(err);
+        })
     }
     render(){
         const { reports, reportsLoaded } = this.state;
