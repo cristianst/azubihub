@@ -16,48 +16,36 @@ FirebaseApp.getCurrentUser = () => {
 };
 
 FirebaseApp.createReport = (report) => {
-    return new Promise((resolve, reject) => {
-        firebaseApp.firestore().collection('reports')
-            .add(report)
-            .then(ref => {
-                resolve(ref);
-            })
-            .catch(e => {
-                reject(e);
-            });
-    });
+        return firebaseApp.firestore().collection('reports')
+            .add(report);   
 };
 
 FirebaseApp.deleteReport = (reportId) => {
-    return new Promise((resolve, reject) => {
-        firebaseApp.firestore().collection('reports')
-            .doc(reportId)
-            .delete()
-            .then(() => {
-                resolve("Deleted");
-            })
-            .catch((e) => {
-                reject(e);
-            })
-    });
-}
+    return firebaseApp.firestore().collection('reports')
+        .doc(reportId)
+        .delete()
+};
 
 FirebaseApp.getReport = (reportId) => {
-    return new Promise((resolve, reject) => {
-        firebaseApp.firestore().collection('reports')
+    return firebaseApp.firestore().collection('reports')
         .doc(reportId)
         .get()
-        .then((report) => {
-            if(report.exists){
-                resolve(report.data());
-            } else {
-                reject("Report doesnt exist");
-            }
-        })
-        .catch(e => {
-            reject(e);
+        .then(report => {
+            return report.exists ? report.data() : null;
         });
-    });
+
 };
+// FirebaseApp.getReport = (reportId) => {
+//         return firebaseApp.firestore().collection('reports')
+//         .doc(reportId)
+//         .get()
+//         .then((report) => {
+//             if(report.exists){
+//                 resolve(report.data());
+//             } else {
+//                 reject("Report doesnt exist");
+//             }
+//         })
+// };
 
 export default FirebaseApp;

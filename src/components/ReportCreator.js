@@ -97,10 +97,13 @@ class ReportCreator extends Component {
             department
         };
 
-        console.log(report);
+        const { history } = this.props;
+
         FirebaseApp.createReport(report)
         .then(result => {
-            console.log("Report Created");
+            history.push({
+                pathname: result.path
+            });
         })
         .catch(e => console.log(e));
     }

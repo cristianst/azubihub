@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Header, Icon, Button } from 'semantic-ui-react';
 import FirebaseApp from '../utils/Firebase';
-import LoggedUserLayout from './LoggedUserLayout';
+import LoggedUserLayout from '../layouts/LoggedUserLayout';
 import ReportForm from './common/ReportForm';
 import generatePDF from '../utils/generatePDF';
 
@@ -10,7 +10,7 @@ class Report extends Component {
         super(props);
         this.state = {
             report: null,
-            readOnly: true
+            readOnly: true,
         };
     }
     toggleEditing = () => {
@@ -20,19 +20,29 @@ class Report extends Component {
     }
     componentDidMount(){
         const { id : reportId } = this.props.match.params;
+        const { history } = this.props;
         FirebaseApp.getReport(reportId)
             .then(report => {
-                this.setState({
-                    report
-                });
+                if(report){
+                    this.setState({
+                        report,
+                    });
+                } else {
+                    history.push({
+                        pathname: `/404`,
+                    });
+                }
             })
             .catch(e => {
-                console.log(e);
+                
             });
     }
     generatePDF = (userName) =>{
         const { report } = this.state;
         generatePDF({userName, report});
+    }
+    updateReport = () => {
+        console.log(this.state.report);
     }
     render(){
         const { report, readOnly } = this.state;
@@ -58,7 +68,7 @@ class Report extends Component {
                                     <Grid.Row style={{textAlign: 'left'}} >
                                         <ReportForm report={report} readOnly={readOnly}>
                                             { !readOnly ?
-                                                <Button color='teal' onClick={this.generateReport}>UPDATE</Button>
+                                                <Button color='teal' onClick={() => {this.updateReport()}}>UPDATE</Button>
                                             :
                                                 <Button color='teal' onClick={() => { this.generatePDF(userName)}}>GENERATE PDF</Button>
                                             }

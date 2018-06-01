@@ -1,13 +1,23 @@
 import React from 'react';
+import { Confirm } from 'semantic-ui-react';
 
-const ConfirmationModal = () => (
-    <Modal
-    trigger={<Button>Show Modal</Button>}
-    header='Reminder!'
-    content='Call Benjamin regarding the reports.'
-    actions={[
-      'Snooze',
-      { key: 'done', content: 'Done', positive: true },
-    ]}
-  />
+const ConfirmationModal = 
+    ({
+        open = false,
+        content = 'Are you sure?', 
+        handleCancel = () => null, 
+        handleConfirm = () => null
+    }) => (
+    <div className='confirmationModal'>
+        <Confirm
+            open={open}
+            className='confirmationModal'
+            content={content}
+            dimmer='blurring'
+            onCancel={handleCancel}
+            onConfirm={handleConfirm}
+        />
+    </div>
 );
+
+export default ConfirmationModal;

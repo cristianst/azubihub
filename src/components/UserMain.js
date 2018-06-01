@@ -18,7 +18,7 @@ class UserMain extends Component {
     createReport(){
         const { history, user } = this.props;
         history.push({
-            pathname: `${process.env.PUBLIC_URL}/new`,
+            pathname: `/new`,
             state: {
                 user
             }
@@ -31,32 +31,39 @@ class UserMain extends Component {
 
         // Retrieve Reports Snapshot
         var observer = reportCollection.onSnapshot(snapshot => {
-            let reports = [];
-            snapshot.forEach(doc => {
-                let report = {};
-                const reportId = doc.id;
-                report = {
-                    _id: reportId,
-                    ...doc.data()
-                };
-                reports.push(report);
 
-                this.setState({
-                    reportsLoaded: true
-                });
+            const reports = snapshot.docs.map(doc => ({
+                _id: doc.id,
+                ...doc.data(),
+            }));
 
-                if(reports.length > 0){
-                    this.setState({
-                        reports
-                    });
-                }
+            this.setState({
+                reports,
+                reportsLoaded: true
             });
+ 
         }, err => {
-            console.log(err);
-        })
+            console.log(observer);
+        }); 
+    }
+    renderReports = () => {
+        const { reportsLoaded } = this.state;
+        if(reportsLoaded){
+            return this.renderLoadedReports()
+        }
+
+        return <div>Loading reports...</div>
+    }
+    renderLoadedReports(){
+        const { reports } = this.state;
+        if(reports.length > 0 ){
+            return <UserReports reports={reports} />
+        }
+        
+        return <div>No reports found</div>;
     }
     render(){
-        const { reports, reportsLoaded } = this.state;
+        //const { reports, reportsLoaded } = this.state;
         const { displayName } = this.props.user;
 
         return(
@@ -73,13 +80,7 @@ class UserMain extends Component {
                         </Header>
                     </Grid.Row>
                     <Grid.Row>
-
-                            { reportsLoaded ?
-                                <UserReports reports={reports} />
-                            :
-                                <div>Reports are loading...</div>
-                            }
-
+                            {this.renderReports()}
                     </Grid.Row>
                     <Grid.Row>
                         <Button onClick={this.createReport} content='NEW REPORT' color='teal' />

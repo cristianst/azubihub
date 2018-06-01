@@ -5,6 +5,8 @@ import ReportCreator from './components/ReportCreator';
 import Report from './components/Report';
 import Page404 from './components/404.js';
 
+import Video from './components/Video.js';
+
 //App Router for GH Pages
 // const AppRouterGH =  () => {
 //     console.log(process.env.PUBLIC_URL);
@@ -28,7 +30,9 @@ const AppRouter =  () => {
                 <Route exact path={`${process.env.PUBLIC_URL}/`} component={Main} />
                 <Route path='/new' component={ReportCreator}/>
                 <Route path='/reports/:id' component={Report}/>
+                <Route path='/video' component={Video}/>
                 <Route component={Page404} />
+                
             </Switch>
         </BrowserRouter>
     )

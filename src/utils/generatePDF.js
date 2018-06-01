@@ -5,7 +5,10 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const generatePDF = ({userName, report}) => {
     // Generate content
     const contentLabel = report.school ? 'Unterichtsthemen:' : 'Betriebliche Tätigkeiten:';
-    const parsedContent = report.content.replace(/\n/ig, '\n\n');
+    const parsedContent = report.content.replace(/\n/ig, '\n');
+    if(userName === 'Cristian Jazhiel Sanchez' ){
+        userName  = 'Cristian Sanchez';
+    }
     const doc = {
         footer: {
             columns: [
@@ -29,7 +32,7 @@ const generatePDF = ({userName, report}) => {
         },
         content: [
             {
-                text: 'Generated with azubiYO - Made by @cristianst',
+                text: 'Generated with azubiHUB - Made by @cristianst',
                 style: 'credits'
             },
             {
@@ -104,7 +107,7 @@ const generatePDF = ({userName, report}) => {
         styles : {
             header: {
                 bold: true,
-                margin: [0, 10, 0, 20],
+                margin: [0, 30, 0, 20],
                 alignment: 'center',
                 fontSize: 20,
                 decoration: 'underline'
@@ -121,7 +124,7 @@ const generatePDF = ({userName, report}) => {
                 italic: true,
                 fontSize: 8,
                 alignment: 'center',
-                margin: [0, -32, 0, 0]
+                margin: [0, -22, 0, 0]
             }
         }
     }
