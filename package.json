@@ -1,9 +1,9 @@
 {
-  "name": "azubiyo",
+  "name": "azubihub",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://cristianst.github.io/azubiyo",
   "dependencies": {
+    "classnames": "^2.2.6",
     "firebase": "^4.12.1",
     "gh-pages": "^1.1.0",
     "jspdf": "^1.3.5",

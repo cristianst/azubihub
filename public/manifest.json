@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "azubiHUB",
+  "name": "azubiHUB - Easily manage azubi reports",
   "icons": [
     {
       "src": "favicon.ico",

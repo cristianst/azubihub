@@ -66,7 +66,10 @@ class Report extends Component {
                                         <Icon name='edit' className="editButton clickable" onClick={this.toggleEditing}/>
                                     </Grid.Row>
                                     <Grid.Row style={{textAlign: 'left'}} >
-                                        <ReportForm report={report} readOnly={readOnly}>
+                                        <ReportForm report={report} readOnly={readOnly}/>
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <div className="actionButtons">
                                             { !readOnly ?
                                                 <Button color='teal' onClick={() => {this.updateReport()}}>UPDATE</Button>
                                             :
@@ -79,8 +82,8 @@ class Report extends Component {
                                                     <Icon name='left arrow' />
                                                 </Button.Content>
                                             </Button>
-                                        </ReportForm>
-                                    </Grid.Row>
+                                        </div>
+                                    </Grid.Row>    
                                 </Grid>
                             )
                         }

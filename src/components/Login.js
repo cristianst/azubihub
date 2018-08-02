@@ -12,7 +12,7 @@ const Login = ({loginAction}) => (
           padded
         >
             <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as="h2">azubiYO!</Header>
+                <Header as="h2">azubiHUB!</Header>
                 <FacebookButton onClick={loginAction}/>
             </Grid.Column>
         </Grid>

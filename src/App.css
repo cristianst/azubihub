@@ -14,8 +14,6 @@ body > div {
   background: #F5F5F6;
 }
 
-
-/* Login Page */
 div.mainLogin {
   height: 100%;
 }
@@ -36,10 +34,6 @@ div.mainLogin {
   text-align: center;
 }
 
-input:read-only, textarea:read-only {
-    opacity: 0.5 !important;
-}
-
 .editButton {
   margin-left: 10px !important;
 }
@@ -55,61 +49,7 @@ input:read-only, textarea:read-only {
   visibility: visible;
 }
 
-.ui.form .disabled.field, .ui.form .disabled.fields .field, .ui.form .field :disabled {
-  opacity: 0.65 !important;
-}
-
-/* Hackfix : See bug -> https://github.com/Semantic-Org/Semantic-UI/issues/6185 */
-/* .visible.transition {
-  margin-top: auto !important;
-  display: inline-block !important;
-  position: relative;
-  top: 20%;
-} */
-
-
-.froala-shit-wrapper {
-  text-align: center;
-   display: inline-block;
-    position: relative;
-}
-
-.qlp-video-wrapper {
-  display: inline-flex;
-  position: relative;
-}
-
-.qlp-video-wrapper video {
-  background: black;
-
-}
-.videooverlay {
-  display: inline-block;
-  width: 100%;
-}
-.questionLayout {
-  width: 100%;
-  height: 100%;
-}
-.fixedHeader {
-  position: fixed;
-  width: 100%;
-  top: 0;
-}
-.skipAdButton {
-  position: absolute;
-  white-space:nowrap;
-  bottom: 6vmin;
-  cursor: pointer;
-  align-items: baseline;
-  min-width: 12vmin;
-  justify-content: space-around;
-  display: inline-flex;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.52);
-  color: #fff;
-  line-height: 1.71;
-  right: 0;
-  letter-spacing: -0.2px;
-  font-size: 14px;
+.reportForm.readOnly {
+  opacity: 0.6;
+  pointer-events: none;
 }
