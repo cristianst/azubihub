@@ -57,6 +57,7 @@ class UserMain extends Component {
     renderLoadedReports(){
         const { reports } = this.state;
         if(reports.length > 0 ){
+            console.log(reports);
             return <UserReports reports={reports} />
         }
         

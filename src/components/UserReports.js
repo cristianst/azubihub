@@ -4,6 +4,7 @@ import { List } from 'semantic-ui-react';
 import _  from 'lodash';
 import FirebaseApp from '../utils/Firebase';
 import ConfirmationModal from './common/ConfirmationModal';
+import * as moment from 'moment';
 
 class UserReports extends Component {
     constructor(props){
@@ -25,7 +26,7 @@ class UserReports extends Component {
         });
     }
     handleConfirmDelete = (e, d) => {
-        FirebaseApp.deleteReport('foo')
+        FirebaseApp.deleteReport(this.reportId)
             .then((r) => console.log(r))
             .catch(e => console.log(e));
         this.setState({
@@ -40,10 +41,10 @@ class UserReports extends Component {
         });
     }
     render(){
-        console.log("render reports");
         const { reports } = this.props;
-        console.log(reports);
-        const sortedReports = _.orderBy(reports, 'startDate').reverse();
+        const sortedReports = reports.sort((a, b) => {
+            return moment(a.startDate, 'DD-MM-YYYY') - moment(b.startDate, 'DD-MM-YYYY')
+        }).reverse();
 
         return(
             <div>
