@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { List } from 'semantic-ui-react';
-import _  from 'lodash';
 import FirebaseApp from '../utils/Firebase';
 import ConfirmationModal from './common/ConfirmationModal';
 import * as moment from 'moment';
