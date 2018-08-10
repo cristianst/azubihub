@@ -27,7 +27,11 @@ class Main extends Component {
                         photoURL,
                     },
                 });
-			}
+			} else {
+                this.setState({
+                    userLoaded: false,
+                });
+            }
 		});
 
 	}

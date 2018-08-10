@@ -32,14 +32,16 @@ class Report extends Component {
                         pathname: `/404`,
                     });
                 }
-            })
-            .catch(e => {
-                
             });
     }
     generatePDF = (userName) =>{
         const { report } = this.state;
-        generatePDF({userName, report});
+        FirebaseApp.getCurrentUser().then((result) => {
+            generatePDF({userName : result.displayName , report});
+        }).catch((e) => {
+            throw Error ('User cant be recognized');
+        });
+        
     }
     updateReport = () => {
         console.log(this.state.report);
@@ -47,50 +49,44 @@ class Report extends Component {
     render(){
         const { report, readOnly } = this.state;
         const { history } = this.props;
+        if(!report) return null;
         return (
             <LoggedUserLayout>
-                {
-                    ({userName}) => {
-                        if(report){
-                            return (
-                                <Grid
-                                verticalAlign='middle'
-                                className='userMainGrid'
-                                centered={true}
-                                padded
-                                >
-                                    <Grid.Row>
-                                        <Header as='h3'>
-                                            {`Report from ${report.startDate} to ${report.endDate}`}
-                                        </Header>
-                                        <Icon name='edit' className="editButton clickable" onClick={this.toggleEditing}/>
-                                    </Grid.Row>
-                                    <Grid.Row style={{textAlign: 'left'}} >
-                                        <ReportForm report={report} readOnly={readOnly}/>
-                                    </Grid.Row>
-                                    <Grid.Row>
-                                        <div className="actionButtons">
-                                            { !readOnly ?
-                                                <Button color='teal' onClick={() => {this.updateReport()}}>UPDATE</Button>
-                                            :
-                                                <Button color='teal' onClick={() => { this.generatePDF(userName)}}>GENERATE PDF</Button>
-                                            }
+                <Grid
+                    verticalAlign='middle'
+                    className='userMainGrid'
+                    centered={true}
+                    padded
+                    >
+                        <Grid.Row>
+                            <Header as='h3'>
+                                {`Report from ${report.startDate} to ${report.endDate}`}
+                            </Header>
+                            <Icon name='edit' className="editButton clickable" onClick={this.toggleEditing}/>
+                        </Grid.Row>
+                        <Grid.Row style={{textAlign: 'left'}} >
+                            <ReportForm 
+                                report={report} 
+                                readOnly={readOnly}
+                                />
+                        </Grid.Row>
+                        <Grid.Row>
+                            <div className="actionButtons">
+                                { !readOnly ?
+                                    <Button color='teal' onClick={() => {this.updateReport()}}>UPDATE</Button>
+                                :
+                                    <Button color='teal' onClick={() => { this.generatePDF('maboy')}}>GENERATE PDF</Button>
+                                }
 
-                                            <Button color='grey' onClick={() => history.push({pathname: `${process.env.PUBLIC_URL}/`})} animated>
-                                                <Button.Content visible>BACK TO HOME</Button.Content>
-                                                <Button.Content hidden>
-                                                    <Icon name='left arrow' />
-                                                </Button.Content>
-                                            </Button>
-                                        </div>
-                                    </Grid.Row>    
-                                </Grid>
-                            )
-                        }
-
-                        return null;
-                    }    
-                }
+                                <Button color='grey' onClick={() => history.push({pathname: `${process.env.PUBLIC_URL}/`})} animated>
+                                    <Button.Content visible>BACK TO HOME</Button.Content>
+                                    <Button.Content hidden>
+                                        <Icon name='left arrow' />
+                                    </Button.Content>
+                                </Button>
+                            </div>
+                        </Grid.Row>    
+                    </Grid>
             </LoggedUserLayout>
 
         );

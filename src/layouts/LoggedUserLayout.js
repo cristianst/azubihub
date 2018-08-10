@@ -1,38 +1,12 @@
-import { Component } from 'react';
-import FirebaseApp from '../utils/Firebase';
+import React from 'react';
 import { withRouter } from 'react-router';
+import NavBar from '../components/common/NavBar';
 
-class LoggedUserLayout extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            userId: null,
-            userName: ''
-        };
-    }
-    componentDidMount(){
-        FirebaseApp.getCurrentUser().then((result) => {
-            this.setState({
-                userId: result.uid,
-                userName: result.displayName
-            });
-        }).catch((e) => {
-            const { history } = this.props;
-            console.log(e);
-            history.push({
-                pathname: '/404'
-            });
-        });
-    }
-
-    render(){
-        if(this.state.userId) {
-            const { userId, userName } = this.state;
-            return this.props.children({userId, userName});
-        }
-
-        return null;
-    }
-}
+const LoggedUserLayout = ({ children }) => (
+  <div className="loggedUserLayout">
+    <NavBar />
+    { children }
+  </div>
+);
 
 export default withRouter(LoggedUserLayout);
