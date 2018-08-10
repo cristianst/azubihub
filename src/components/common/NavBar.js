@@ -18,7 +18,7 @@ const logOut = (history) =>  {
 const NavBar = ({ history }) => (
   <div className="mainNav">
     <div className="mainNavInfo" onClick={() => goHome(history)}>
-      <img className="blobbyLogo" src="/blobby-logo.svg" />
+      <img className="blobbyLogo" alt="azubiHUB" src="/blobby-logo.svg" />
       <h1 className="siteName">azubiHUB</h1>
     </div>  
     <div className="mainNavMenu" >

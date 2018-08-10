@@ -1,0 +1,18 @@
+
+@media only screen and (max-width: 529px){
+  .loggedUserLayout .mainContent {
+    max-width: 70%;
+    margin: 0 auto;
+  }
+  .loggedUserLayout .mainContent .userReportsList {
+    max-width: 100%;
+  }
+
+  .loggedUserLayout .mainContent .userReportsList .singleReportActions {
+    display: none;
+  }
+}
+
+.loggedUserLayout .mainContent .userReportsList .userReportItem {
+  margin-bottom: 10px;
+}
