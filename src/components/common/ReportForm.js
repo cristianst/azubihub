@@ -3,6 +3,7 @@ import {  Form, Radio, Input, Select } from 'semantic-ui-react';
 import { DayPickerRangeController } from 'react-dates';
 import { START_DATE } from 'react-dates/constants';
 import * as moment from 'moment';
+import classNames from 'classnames';
 
 class ReportForm extends Component {
     constructor(props){
@@ -33,7 +34,6 @@ class ReportForm extends Component {
     handleChangeTextAreaContent = (e, {value}) => {
         this.setState({
             reportContent: value
-            //reportContent: value.replace(/(?:\r\n|\r|\n)/g, '<br/>')
         });
     }
     handleChangeType = (e, {value}) => {
@@ -64,12 +64,16 @@ class ReportForm extends Component {
             { key: '2', text: '2', value: 2 },
             { key: '3', text: '3', value: 3 }
         ];
+
+        const reportClasses = classNames('reportForm', {
+            'readOnly': readOnly
+        });
+
         return(
-            <div className='reportForm'>
+            <div className={reportClasses}>
                 <Form>
                     <Form.Group widths='equal'>
                         <Form.Field 
-                            disabled={readOnly} 
                             control={Input} 
                             label='Current Department' 
                             value={department} 
@@ -79,7 +83,6 @@ class ReportForm extends Component {
                         {/* <Dropdown placeholder='Learning Year' onChange={this.handleChangeYear} options={yearOptions} /> */}
                         <Form.Field 
                             control={Select}
-                            disabled={readOnly}
                             value={year} 
                             label='Learning Year' 
                             options={yearOptions} 
@@ -109,12 +112,11 @@ class ReportForm extends Component {
                     </div>
                     <Form.Group inline>
                         <label>Type</label>
-                        <Form.Field disabled={readOnly} control={Radio} label='Work' value='work' checked={reportType === 'work'} onChange={this.handleChangeType} />
-                        <Form.Field disabled={readOnly} control={Radio} label='School' value='school' checked={reportType === 'school'} onChange={this.handleChangeType} />
+                        <Form.Field control={Radio} label='Work' value='work' checked={reportType === 'work'} onChange={this.handleChangeType} />
+                        <Form.Field control={Radio} label='School' value='school' checked={reportType === 'school'} onChange={this.handleChangeType} />
                     </Form.Group>
                     <Form.TextArea
                         value={reportContent}
-                        disabled={readOnly}
                         label={labelForWeekContent}
                         onChange={this.handleChangeTextAreaContent}
                         placeholder='Stuff you had in the week.'
