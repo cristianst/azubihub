@@ -10,8 +10,11 @@ const Login = ({loginAction}) => (
           style={{ height: '100%' }}
           verticalAlign='middle'
           padded
-        >
+        >  
             <Grid.Column style={{ maxWidth: 450 }}>
+                <div class="logoContainer">
+                    <img alt="azubiHUB" src="/blobby-logo.svg" />
+                </div>
                 <Header as="h2">azubiHUB!</Header>
                 <FacebookButton onClick={loginAction}/>
             </Grid.Column>

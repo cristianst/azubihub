@@ -54,7 +54,7 @@ class Report extends Component {
             <LoggedUserLayout>
                 <Grid
                     verticalAlign='middle'
-                    className='userMainGrid'
+                    className='userMainGrid userReportView'
                     centered={true}
                     padded
                     >
@@ -75,10 +75,24 @@ class Report extends Component {
                                 { !readOnly ?
                                     <Button color='teal' onClick={() => {this.updateReport()}}>UPDATE</Button>
                                 :
+                                    /* <Button 
+                                        color='teal' 
+                                        onClick={() => { this.generatePDF('maboy')}}
+                                        animated
+                                    >
+                                        <Button.Content visible>GENERATE PDF</Button.Content>
+                                        <Button.Content hidden>
+                                            <Icon name='file pdf outline' />
+                                        </Button.Content>
+                                    </Button> */
                                     <Button color='teal' onClick={() => { this.generatePDF('maboy')}}>GENERATE PDF</Button>
                                 }
 
-                                <Button color='grey' onClick={() => history.push({pathname: `${process.env.PUBLIC_URL}/`})} animated>
+                                <Button 
+                                    color='grey' 
+                                    onClick={() => history.push({pathname: `${process.env.PUBLIC_URL}/`})} 
+                                    animated
+                                >
                                     <Button.Content visible>BACK TO HOME</Button.Content>
                                     <Button.Content hidden>
                                         <Icon name='left arrow' />

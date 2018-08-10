@@ -96,4 +96,4 @@ class UserMain extends Component {
 
 const userMainWithRouter = withRouter(UserMain);
 
-export default UserMain; //userMainWithRouter;
+export default userMainWithRouter;

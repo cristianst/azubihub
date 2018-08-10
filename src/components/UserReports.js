@@ -46,11 +46,11 @@ class UserReports extends Component {
         }).reverse();
 
         return(
-            <div>
+            <div className="userReportsList">
                 <List selection verticalAlign='middle'>
                     { sortedReports.map((report, index) => (
                         <List.Item className="userReportItem" key={index} onClick={() => this.navigateToReport(report._id)}>
-                            <List.Content floated='right' verticalAlign='middle' >
+                            <List.Content floated='right' verticalAlign='middle' className="singleReportActions" >
                                 <List.Icon className='deleteReport' color='red' name='trash' onClick={(e) => this.deleteReport(e, report._id)}/>
                             </List.Content> 
                             
