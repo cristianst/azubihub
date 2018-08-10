@@ -16,8 +16,8 @@ FirebaseApp.getCurrentUser = () => {
 };
 
 FirebaseApp.createReport = (report) => {
-        return firebaseApp.firestore().collection('reports')
-            .add(report);   
+    return firebaseApp.firestore().collection('reports')
+        .add(report);   
 };
 
 FirebaseApp.deleteReport = (reportId) => {
@@ -35,17 +35,9 @@ FirebaseApp.getReport = (reportId) => {
         });
 
 };
-// FirebaseApp.getReport = (reportId) => {
-//         return firebaseApp.firestore().collection('reports')
-//         .doc(reportId)
-//         .get()
-//         .then((report) => {
-//             if(report.exists){
-//                 resolve(report.data());
-//             } else {
-//                 reject("Report doesnt exist");
-//             }
-//         })
-// };
+
+FirebaseApp.signOutUser = () => {
+    return firebaseApp.auth().signOut();
+}
 
 export default FirebaseApp;

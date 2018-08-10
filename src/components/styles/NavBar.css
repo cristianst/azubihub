@@ -1,0 +1,39 @@
+.mainNav {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #24292e;
+    color: white;
+}
+
+.mainNav .mainNavInfo {
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.mainNav .mainNavInfo:hover {
+  opacity: 1;
+}
+
+.mainNav .mainNavInfo h1.siteName {
+  font-size: 20px;
+  margin: 0 0 0 10px;
+}
+
+.mainNav .mainNavInfo .blobbyLogo {
+  width: 40px;
+}
+
+.mainNav .mainNavMenu .mainNavMenuItem {
+  margin-right: 10px;
+  cursor: pointer;
+  opacity: 0.8;
+  text-transform: uppercase;
+} 
+
+.mainNav .mainNavMenu .mainNavMenuItem:hover {
+  opacity: 1;
+} 

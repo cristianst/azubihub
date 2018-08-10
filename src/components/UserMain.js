@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import { Button, Header, Grid } from 'semantic-ui-react';
 import UserReports from './UserReports.js';
 import { withRouter } from 'react-router';
+import LoggedUserLayout from '../layouts/LoggedUserLayout.js';
 
 class UserMain extends Component {
     constructor(props){
@@ -57,7 +58,6 @@ class UserMain extends Component {
     renderLoadedReports(){
         const { reports } = this.state;
         if(reports.length > 0 ){
-            console.log(reports);
             return <UserReports reports={reports} />
         }
         
@@ -68,30 +68,32 @@ class UserMain extends Component {
         const { displayName } = this.props.user;
 
         return(
-            <div className="userMainPage">
-                <Grid
-                  verticalAlign='middle'
-                  centered={true}
-                  className='userMainGrid'
-                  padded
-                >
-                    <Grid.Row>
-                        <Header as="h2">
-                            Welcome {displayName}
-                        </Header>
-                    </Grid.Row>
-                    <Grid.Row>
-                            {this.renderReports()}
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Button onClick={this.createReport} content='NEW REPORT' color='teal' />
-                    </Grid.Row>
-                </Grid>
-            </div>
+            <LoggedUserLayout>
+                <div className="userMainPage">
+                    <Grid
+                    verticalAlign='middle'
+                    centered={true}
+                    className='userMainGrid'
+                    padded
+                    >
+                        <Grid.Row>
+                            <Header as="h2">
+                                Welcome {displayName}
+                            </Header>
+                        </Grid.Row>
+                        <Grid.Row>
+                                {this.renderReports()}
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Button onClick={this.createReport} content='NEW REPORT' color='teal' />
+                        </Grid.Row>
+                    </Grid>
+                </div>
+            </LoggedUserLayout>
         );
     }
 }
 
 const userMainWithRouter = withRouter(UserMain);
 
-export default userMainWithRouter;
+export default UserMain; //userMainWithRouter;
