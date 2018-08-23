@@ -1,16 +1,23 @@
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
-
 import React, { Component } from 'react';
+import Noty from 'noty';
 import { Grid, Header, Form, Radio, Input, Select, Button, Icon } from 'semantic-ui-react';
 import { START_DATE } from 'react-dates/constants';
 import { DayPickerRangeController } from 'react-dates';
-
 import FirebaseApp from '../utils/Firebase';
 import LoggedUserLayout from '../layouts/LoggedUserLayout';
 
+const standardToastConfig = {
+    theme: 'semanticui',
+    layout: 'topRight',
+    timeout: 2000,
+    progressBar: false,
+};
+
 class ReportCreator extends Component {
     constructor(props){
+        console.log(START_DATE);
         super(props);
         this.state = {
             department: '',
@@ -21,7 +28,7 @@ class ReportCreator extends Component {
             reportType: "work",
             reportContent: '',
             creatingReport: false,
-            focusedInput: START_DATE
+            //focusedInput: START_DATE
         };
 
         this.handleChangeDepartment = this.handleChangeDepartment.bind(this);
@@ -87,6 +94,21 @@ class ReportCreator extends Component {
             userId,
         } = this.state;
 
+        const hasFalsyKeys = Object.keys(this.state).some( k => !this.state[k]);
+
+        if(hasFalsyKeys){
+            new Noty({
+                ...standardToastConfig,
+                text: 'Some fields are missing',
+                type: 'error'
+            }).show();
+            
+            this.setState({
+                creatingReport: false,
+            });
+
+            return null;
+        }
         // Prepare Report Object
         const report = {
             startDate: startDate.format("DD-MM-YYYY"),
@@ -102,9 +124,15 @@ class ReportCreator extends Component {
 
         FirebaseApp.createReport(report)
         .then(result => {
-            history.push({
-                pathname: result.path
-            });
+            new Noty({
+                ...standardToastConfig,
+                text: 'Report Created',
+                type: 'success'
+            }).on('onClose', () => {
+                history.push({
+                    pathname: result.path
+                });
+            }).show();
         })
         .catch(e => console.log(e));
     }

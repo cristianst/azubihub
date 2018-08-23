@@ -5,47 +5,36 @@ import { START_DATE } from 'react-dates/constants';
 import * as moment from 'moment';
 import classNames from 'classnames';
 
+const getMomentDate = (date) => moment(date, "DD-MM-YYYY");
+
 class ReportForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            department: props.report.department || '',
-            userId: props.report.createdBy || '',
-            year: props.report.year || null,
-            startDate: moment(props.report.startDate, "DD-MM-YYYY") || null,
-            endDate: moment(props.report.endDate, "DD-MM-YYYY") || null,
-            reportType: props.report.school === "school" ? "school" : "work",
-            reportContent: props.report.content || '',
-            creatingReport: false,
             focusedInput: START_DATE
-        };
+        }
     }
-
     handleChangeDepartment = (e, {value}) => {
-        this.setState({
-            department: value
-        });
+        this.props.onChangeDepartment(value)
     }
     handleChangeYear = (e, {value}) => {
-        this.setState({
-            year: +value
-        });
+        this.props.onChangeYear(+value);
     }
-    handleChangeTextAreaContent = (e, {value}) => {
-        this.setState({
-            reportContent: value
-        });
+    handleChangeReportContent = (e, {value}) => {
+        this.props.onChangeReportContent(value);
     }
     handleChangeType = (e, {value}) => {
-        this.setState({
-            reportType : value
+        this.props.onChangeType(value);
+    }
+    handleChangeDates= ({startDate, endDate}) => {
+        this.props.onChangeDates({ 
+            startDate: startDate.format('DD-MM-YYYY'), 
+            endDate: endDate.format('DD-MM-YYYY')
         });
+        
     }
     onFocusChange = (focusedInput) => {
         this.setState({ focusedInput });
-    }
-    onDatesChange= ({startDate, endDate}) => {
-        this.setState({ startDate, endDate });
     }
     isWeekendDay(day){
         const dayNumber = day.weekday();
@@ -56,9 +45,19 @@ class ReportForm extends Component {
         return false;
     }
     render(){
-        const readOnly = this.props.readOnly || false;
-        const { focusedInput, startDate, endDate, year, reportType, department, reportContent } = this.state;
-        const labelForWeekContent = reportType === 'work' ? 'Work done' : 'Lessons content';
+        const { readOnly = false } = this.props;
+        const { 
+            department = null, 
+            year = null, 
+            startDate = null, 
+            endDate = null, 
+            school = true,
+            content: reportContent = null,
+        } =  this.props.report;
+
+        const { focusedInput } = this.state;
+
+        const labelForWeekContent = school ? 'Lessons content' : 'Work done' ;
         const yearOptions = [
             { key: '1', text: '1', value: 1 },
             { key: '2', text: '2', value: 2 },
@@ -80,7 +79,6 @@ class ReportForm extends Component {
                             placeholder='Company Department' 
                             onChange={this.handleChangeDepartment} 
                         />
-                        {/* <Dropdown placeholder='Learning Year' onChange={this.handleChangeYear} options={yearOptions} /> */}
                         <Form.Field 
                             control={Select}
                             value={year} 
@@ -95,15 +93,15 @@ class ReportForm extends Component {
                         <div style={{ marginTop : 15, marginBottom: 15}} className="textCentered">
                             <div style={{ display: 'inline-block' }} >
                                 <DayPickerRangeController
-                                    startDate={startDate}
-                                    endDate={endDate}
+                                    startDate={getMomentDate(startDate)}
+                                    endDate={getMomentDate(endDate)}
                                     numberOfMonths={1}
                                     hideKeyboardShortcutsPanel={true}
                                     minimumNights={4}
                                     enableOutsideDays={true}
                                     endDateOffset={day => day.weekday() === 1 ? day.add(4, 'days') : day.add(6,'days')}
                                     isDayBlocked={day => this.isWeekendDay(day) }
-                                    onDatesChange={this.onDatesChange}
+                                    onDatesChange={this.handleChangeDates}
                                     focusedInput={focusedInput}
                                     onFocusChange={this.onFocusChange}
                                 />
@@ -112,13 +110,13 @@ class ReportForm extends Component {
                     </div>
                     <Form.Group inline>
                         <label>Type</label>
-                        <Form.Field control={Radio} label='Work' value='work' checked={reportType === 'work'} onChange={this.handleChangeType} />
-                        <Form.Field control={Radio} label='School' value='school' checked={reportType === 'school'} onChange={this.handleChangeType} />
+                        <Form.Field control={Radio} label='Work' value='work' checked={!school} onChange={this.handleChangeType} />
+                        <Form.Field control={Radio} label='School' value='school' checked={school} onChange={this.handleChangeType} />
                     </Form.Group>
                     <Form.TextArea
                         value={reportContent}
                         label={labelForWeekContent}
-                        onChange={this.handleChangeTextAreaContent}
+                        onChange={this.handleChangeReportContent}
                         placeholder='Stuff you had in the week.'
                         autoHeight
                     />

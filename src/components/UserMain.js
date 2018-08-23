@@ -13,10 +13,8 @@ class UserMain extends Component {
             reportsLoaded: false,
         };
 
-        this.createReport = this.createReport.bind(this);
-
     }
-    createReport(){
+    createReport = () => {
         const { history, user } = this.props;
         history.push({
             pathname: `/new`,
@@ -55,7 +53,7 @@ class UserMain extends Component {
 
         return <div>Loading reports...</div>
     }
-    renderLoadedReports(){
+    renderLoadedReports = () => {
         const { reports } = this.state;
         if(reports.length > 0 ){
             return <UserReports reports={reports} />
@@ -64,7 +62,6 @@ class UserMain extends Component {
         return <div>No reports found</div>;
     }
     render(){
-        //const { reports, reportsLoaded } = this.state;
         const { displayName } = this.props.user;
 
         return(
