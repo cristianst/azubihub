@@ -128,7 +128,9 @@ const generatePDF = ({userName, report}) => {
             }
         }
     }
-    pdfMake.createPdf(doc).open();
+    
+    pdfMake.createPdf(doc).open()
+
 };
 
 export default generatePDF;

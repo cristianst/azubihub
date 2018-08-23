@@ -36,6 +36,14 @@ FirebaseApp.getReport = (reportId) => {
 
 };
 
+FirebaseApp.updateReport = ({ reportId, report }) => {
+    return firebaseApp.firestore().collection('reports')
+        .doc(reportId)
+        .update({
+            ...report
+        });
+}
+
 FirebaseApp.signOutUser = () => {
     return firebaseApp.auth().signOut();
 }
