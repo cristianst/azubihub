@@ -1,14 +1,21 @@
 ## azubiyo
 
-Create and manage weekly azubi reports.
+Create and manage weekly azubi reports. PDF export included.
 
 
-### tech stack
+### Tech stack
 
 - ReactJS
 - Firebase (Firestore Cloud)
 
 
-### Production
+### Live Version (Beta)
 
-- Deploy to Github Pages (ckeck branch `gh-pages`)
+https://azubihub.surge.sh/
+
+### To-Do
+
+- Refactoring
+- Add Pagination
+- Style PDF 
+- Add more login methods (email, phone)
